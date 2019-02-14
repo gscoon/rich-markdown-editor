@@ -32,6 +32,7 @@ type Props = {
   readOnly?: boolean,
   toc?: boolean,
   dark?: boolean,
+  hideToolbars?: boolean,
   schema?: Schema,
   theme?: Object,
   uploadImage?: (file: File) => Promise<string>,
@@ -253,6 +254,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       defaultValue,
       autoFocus,
       plugins,
+      hideToolbars,
       ...rest
     } = this.props;
 
@@ -276,11 +278,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
               this.state.editorLoaded &&
               this.editor && <Contents editor={this.editor} />}
             {!readOnly &&
-              this.editor && (
+              this.editor &&
+              !hideToolbars && (
                 <Toolbar value={this.state.editorValue} editor={this.editor} />
               )}
             {!readOnly &&
-              this.editor && (
+              this.editor &&
+              !hideToolbars && (
                 <BlockInsert
                   editor={this.editor}
                   onInsertImage={this.insertImageFile}
